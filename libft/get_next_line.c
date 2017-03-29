@@ -6,13 +6,13 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 20:31:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/02/16 15:25:58 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 14:33:13 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*res_gen(char **hold_c)
+static char	*res_gen(char **hold_c)
 {
 	char	*res;
 	char	*tmp;
@@ -31,7 +31,7 @@ char	*res_gen(char **hold_c)
 	return (res);
 }
 
-char	*fill_hold(char **hold_i, char *buff, int ret_read)
+static char	*fill_hold(char **hold_i, char *buff, int ret_read)
 {
 	char	*res;
 	char	*hold;
