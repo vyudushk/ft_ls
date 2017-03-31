@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:34:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/31 16:05:41 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/31 16:10:26 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,13 @@ int main(int argc, char **argv)
 	DIR				*new_dir;
 	struct dirent	*file;
 	t_list			*lst;
-	t_list			*head;
 
 	if (argc == 1)
 		new_dir = opendir(".");
 	else
 		new_dir = opendir(argv[1]);
-	file = readdir(new_dir);
-	lst = ft_lstnew(file->d_name, ft_strlen(file->d_name));
-	head = lst;
 	while ((file = readdir(new_dir)))
-	{
-		lst->next = ft_lstnew(file->d_name, ft_strlen(file->d_name));
-		lst = lst->next;
-	}
-	ft_lstiter(head, print_lst);
+		ft_lstadd(&lst, ft_lstnew(file->d_name, ft_strlen(file->d_name)));
+	ft_lstiter(lst, print_lst);
 	return (0);
 }
