@@ -6,11 +6,12 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 11:42:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/11/27 14:28:34 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:15:45 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
 void	ft_putnbr(int n)
 {
@@ -21,7 +22,7 @@ void	ft_putnbr(int n)
 	}
 	if (n < 0)
 	{
-		ft_putchar('-');
+		write(1, "-", 1);
 		n = n * -1;
 	}
 	if (n >= 10)

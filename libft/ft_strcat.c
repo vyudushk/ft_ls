@@ -6,12 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/02 16:43:17 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/11/18 17:05:03 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:23:59 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include "libft.h"
 
 char	*ft_strcat(char *s1, const char *s2)
 {

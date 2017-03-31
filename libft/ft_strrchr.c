@@ -6,11 +6,9 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 16:36:51 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/12/01 14:07:34 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:32:34 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <string.h>
 
 char	*ft_strrchr(const char *s, int c)
 {

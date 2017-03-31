@@ -6,15 +6,12 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/28 13:37:50 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/31 15:44:21 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBLS_H
 # define LIBLS_H
 
-/*
-** put function declerations here
-*/
 
 #endif

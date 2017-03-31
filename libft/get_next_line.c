@@ -6,11 +6,13 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 20:31:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/29 14:33:13 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 14:59:36 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 static char	*res_gen(char **hold_c)
 {

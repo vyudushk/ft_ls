@@ -6,12 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 16:22:25 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/12/01 00:57:01 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:01:00 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <string.h>
 #include "libft.h"
 
 char		*ft_strtrim(char const *s)

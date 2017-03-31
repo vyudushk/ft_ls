@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/31 10:40:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/03 17:43:40 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:00:42 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define LIBFT_H
 
 # include <string.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 size_t			ft_strlen(const char *str);
 void			*ft_memset(void *s, int c, size_t n);

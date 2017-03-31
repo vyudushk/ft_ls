@@ -6,12 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 16:32:10 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/11/21 17:31:47 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:29:14 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <string.h>
 
 char	*ft_strmap(char const *s, char (*f)(char))
 {

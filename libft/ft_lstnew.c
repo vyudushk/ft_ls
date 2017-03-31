@@ -6,12 +6,12 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/28 18:29:26 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/11/28 21:01:54 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/31 15:54:47 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdlib.h"
+#include <stdlib.h>
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {

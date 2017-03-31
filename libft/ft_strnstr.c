@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/23 14:51:58 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/12/01 18:02:34 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/03/29 15:32:02 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-
-/*
-** Old implimentations which didn't pass moulitest but did pass
-** libft-unit-tests
-** {
-**	char		*res;
-**	const char	*hold;
-**	const char	*start;
-**
-**	if ((!*big && !*little) || (*big && !*little))
-**		return ((char*)big);
-**	hold = little;
-**	start = big;
-**	while (*big && *little && len--)
-**	{
-**		if (*big == *little)
-**		{
-**			res = (char*)big;
-**			while (*big++ == *little++ && len >= ft_strlen(little))
-**				if (*little == 0)
-**					return (res);
-**			little = hold;
-**		}
-**		if (len > 0)
-**			big = start++;
-**		if (len == 0)
-**			return (0);
-**	}
-**	return (0);
-**	}
-*/
