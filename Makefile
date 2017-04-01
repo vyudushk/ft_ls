@@ -1,6 +1,6 @@
 NAME		= ft_ls
 LIB			= libls.a
-FILENAMES	= main.c
+FILENAMES	= main.c lst.c error_handle.c
 HEADER		= .
 FLAGS		= -Wall -Wextra -Werror
 
