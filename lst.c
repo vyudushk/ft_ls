@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 16:47:57 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/31 21:03:39 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/04 13:37:14 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 void		print_lst(t_list *lst)
 {
 	ft_putendl(lst->content);
-
-/*
-**	char	*test;
-**
-**	test = (char*)lst->content;
-**	if (test[0] != '.')
-**		ft_putendl(lst->content);
-*/
 }
 
 static int	is_lst_sort(t_list *lst)
@@ -59,4 +51,3 @@ void		sort_lst(t_list **input)
 		}
 	}
 }
-

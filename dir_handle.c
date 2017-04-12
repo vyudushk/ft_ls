@@ -6,12 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 17:42:35 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/11 18:47:12 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/11 18:48:27 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <dirent.h> //opendir and readdir
-#include <stdio.h> //printf, TODO remove
 
 DIR	*find_dir(int argc, char **argv)
 {
