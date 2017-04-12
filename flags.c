@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 12:14:00 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/05 11:27:05 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/11 19:05:23 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ t_flag	*parse_flags(int argc, char **argv)
 	while (i < argc && argv[i][0] == '-')
 	{
 		n = 0;
-		while (argv[1][n] != 0)
+		while (argv[i][n] != 0)
 		{
-			set_flag(flags, argv[1][n]);
+			set_flag(flags, argv[i][n]);
 			n++;
 		}
 		i++;

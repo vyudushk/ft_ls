@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/03 17:44:07 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/11 19:11:49 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ t_flag			*new_t_flag();
 void			set_flag(t_flag *flags, char c);
 t_flag			*parse_flags(int argc, char **argv);
 DIR				*find_dir(int argc, char **argv);
+
+void			process_lst(t_list *lst, t_flag *options);
 
 #endif

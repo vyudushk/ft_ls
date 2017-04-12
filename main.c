@@ -6,13 +6,14 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:34:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/11 18:48:21 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/11 19:11:28 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
 #include "libft.h"
 #include <dirent.h> //opendir and readdir
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
@@ -30,6 +31,7 @@ int	main(int argc, char **argv)
 		ft_putchar(file->d_type);
 	}
 	sort_lst(&lst);
-	ft_lstiter(lst, print_lst);
+	//ft_lstiter(lst, print_lst);
+	process_lst(lst, options);
 	return (0);
 }
