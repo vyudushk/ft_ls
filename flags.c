@@ -6,14 +6,14 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 12:14:00 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/11 19:05:23 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/19 12:47:30 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libls.h"
 
-t_flag	*new_t_flag()
+t_flag	*new_t_flag(void)
 {
 	t_flag	*res;
 
@@ -23,7 +23,7 @@ t_flag	*new_t_flag()
 	res->long_format = 0;
 	res->recur = 0;
 	res->include_dot = 0;
-	res->reverse = 0;
+	res->rev = 0;
 	res->time = 0;
 	return (res);
 }
@@ -37,7 +37,7 @@ void	set_flag(t_flag *flags, char c)
 	if (c == 'a')
 		flags->include_dot = 1;
 	if (c == 'r')
-		flags->reverse = 1;
+		flags->rev = 1;
 	if (c == 't')
 		flags->time = 1;
 }

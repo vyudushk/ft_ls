@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/11 20:31:07 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/03/29 14:59:36 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/19 10:17:51 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*fill_hold(char **hold_i, char *buff, int ret_read)
 	return (res);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	static char		*hold = 0;
 	static int		old_fd = 0;

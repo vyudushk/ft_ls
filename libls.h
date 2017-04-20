@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/11 19:11:49 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/19 20:04:17 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct	s_flag
 	int long_format; 
 	int	recur;
 	int	include_dot;
-	int	reverse;
+	int	rev;
 	int	time;
 }				t_flag;
 

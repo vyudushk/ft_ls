@@ -6,12 +6,12 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 21:07:11 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/03 12:54:31 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/19 10:19:11 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <dirent.h> //DIR type
-#include <stdlib.h> //exit
+#include <dirent.h>
+#include <stdlib.h>
 #include "libft.h"
 
 void	valid_check(DIR *new_dir, char *dir_name)
