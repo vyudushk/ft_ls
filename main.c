@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:34:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/19 19:51:15 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/24 21:22:37 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 	while ((file = readdir(new_dir)))
 	{
 		//ft_lstadd(&lst, ft_lstnew(file->d_name, ft_strlen(file->d_name)));
-		ft_lstadd(&lst, ft_lstnew(file, sizeof(file)));
+		ft_lstadd(&lst, ft_lstnew(file, sizeof(struct dirent)));
 	}
 	process_lst(lst, options);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/19 20:04:17 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/24 21:55:20 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct	s_flag
 }				t_flag;
 
 void			print_lst(t_list *lst);
-void			sort_lst(t_list **input);
+void			sort_lst(t_list **input, t_flag *options);
 void			valid_check(DIR *new_dir, char *dir_name);
 t_flag			*new_t_flag();
 void			set_flag(t_flag *flags, char c);
