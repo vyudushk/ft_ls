@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 16:47:57 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/24 22:00:58 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/04/27 15:41:34 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@
 ** I'm just keeping here so that I remember what I learned
 ** from kdavis.
 **
-** TODO: Make a macro to make derefrencing the string much
-** easier to read.
-**
 **	struct dirent	hold;
 **
 **	hold = *((struct dirent*)(lst->content));
 **	ft_putendl(hold.d_name);
+**
+**  the GET_NAME(lst) macro now just pulls out the name from the lst as a 
+**  regular indexable array
 */
 
 void		print_lst_dot(t_list *lst)
 {
-	ft_putendl(((struct dirent*)(lst->content))->d_name);
+	ft_putendl(GET_NAME(lst));
 }
 
 void		print_lst(t_list *lst)
 {
-	if (((struct dirent*)(lst->content))->d_name[0] != '.')
-		ft_putendl(((struct dirent*)(lst->content))->d_name);
+	if (GET_NAME(lst)[0] != '.')
+		ft_putendl(GET_NAME(lst));
 }
 
 void		process_lst(t_list *lst, t_flag *options)
@@ -52,10 +52,8 @@ static int	is_lst_sort(t_list *lst, t_flag *opt)
 {
 	while (lst->next)
 	{
-		if ((!opt->rev && ft_strcmp(((struct dirent*)(lst->content))->d_name,
-				((struct dirent*)(lst->next->content))->d_name) > 0) ||
-			(opt->rev && ft_strcmp(((struct dirent*)(lst->content))->d_name,
-				((struct dirent*)(lst->next->content))->d_name) < 0))
+		if ((!opt->rev && ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) > 0) ||
+			(opt->rev && ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) < 0))
 			return (0);
 		lst = lst->next;
 	}
@@ -75,10 +73,10 @@ void		sort_lst(t_list **input, t_flag *opt)
 		lst = head;
 		while (lst->next)
 		{
-			if ((!opt->rev && (ft_strcmp(((struct dirent*)(lst->content))->d_name,
-					((struct dirent*)(lst->next->content))->d_name) > 0)) ||
-				(opt->rev && (ft_strcmp(((struct dirent*)(lst->content))->d_name,
-					((struct dirent*)(lst->next->content))->d_name) < 0)))
+			if ((!opt->rev &&
+						(ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) > 0))
+				|| (opt->rev &&
+						(ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) < 0)))
 			{
 				hold = lst->content;
 				lst->content = lst->next->content;
