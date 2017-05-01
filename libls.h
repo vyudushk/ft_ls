@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/27 15:20:30 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/05/01 15:33:47 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft/libft.h"
 # include <dirent.h> //DIR type and struct dirent
-# include <sys/stat.h> // 
-# define GET_NAME(lst) ((struct dirent*)(lst->content))->d_name
+# include <sys/stat.h> // stat struct
+# define GET_NAME(lst) ((t_file*)(lst->content))->name->d_name
 
 typedef struct	s_flag
 {
