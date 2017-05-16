@@ -29,7 +29,7 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ) 
 
 build/%.o: %.c | build
-	gcc $(FLAGS) -I $(HEADER) -c $^ -o $@
+	gcc  $(FLAGS) -I $(HEADER) -c $^ -o $@
 
 build:
 	mkdir build

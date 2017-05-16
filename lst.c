@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 16:47:57 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/27 15:41:34 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/05/02 16:12:20 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libls.h"
 #include <unistd.h>
 #include <dirent.h>
+#include <stdio.h>
 
 /*
 ** I'm just keeping here so that I remember what I learned
@@ -24,7 +25,7 @@
 **	hold = *((struct dirent*)(lst->content));
 **	ft_putendl(hold.d_name);
 **
-**  the GET_NAME(lst) macro now just pulls out the name from the lst as a 
+**  the GET_NAME(lst) macro now just pulls out the name from the lst as a
 **  regular indexable array
 */
 

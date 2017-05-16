@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/05/01 15:33:47 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:44:36 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_flag
 typedef struct	s_file
 {
 	struct dirent	*name;
-	struct stat		*info;
+	struct stat		info;
 }				t_file;
 
 void			print_lst(t_list *lst);
@@ -39,6 +39,7 @@ void			valid_check(DIR *new_dir, char *dir_name);
 t_flag			*new_t_flag();
 void			set_flag(t_flag *flags, char c);
 t_flag			*parse_flags(int argc, char **argv);
+int				isflags(t_flag *opt);
 DIR				*find_dir(int argc, char **argv);
 
 void			process_lst(t_list *lst, t_flag *options);

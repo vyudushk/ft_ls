@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 12:14:00 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/04/19 12:47:30 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/05/15 15:44:13 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void	set_flag(t_flag *flags, char c)
 		flags->rev = 1;
 	if (c == 't')
 		flags->time = 1;
+}
+
+int		isflags(t_flag *opt)
+{
+	int	n;
+
+	n = 0;	
+	n += opt->long_format ? 1 : 0;
+	n += opt->recur ? 1 : 0;
+	n += opt->include_dot ? 1 : 0;
+	n += opt->rev ? 1 : 0;
+	n += opt->time ? 1 : 0;
+	return (n);
 }
 
 t_flag	*parse_flags(int argc, char **argv)

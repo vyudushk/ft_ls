@@ -1,48 +1,57 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copyofmain_deletemeltrpls.c                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 13:34:41 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/05/02 16:07:03 by vyudushk         ###   ########.fr       */
+/*   Created: 2017/05/15 15:31:21 by vyudushk          #+#    #+#             */
+/*   Updated: 2017/05/15 16:29:20 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
-#include "libft.h"
-#include <dirent.h> // DIR and dirent
-#include <stdio.h>
-#include <sys/stat.h> //stat()
+#include <dirent.h>
+#include <libft.h>
 #include <stdlib.h>
 
-int	print_dir(t_flag *options, DIR *new_dir)
+void	print_dir(int argc, char* dir_name)
 {
-	t_file	*file;
+	DIR		*ds;
 	t_list	*lst;
+	t_file	*file;
 
+	ds = opendir(dir_name);
+	lst = 0;
+	file = 0;
 	file = (t_file*)malloc(sizeof(t_file));
 	if (file == 0)
-		return (0);
-	lst = 0;
-	while ((file->name = readdir(new_dir)))
+		return ;
+	while ((file->name = readdir(ds)))
 	{
-		stat(file->name->d_name, file->info);
-		ft_lstadd(&lst, ft_lstnew(file, sizeof(file)));
+		ft_lstadd(&lst, ft_lstnew(file, sizeof(t_file)));
 	}
-	process_lst(lst, options);
-	return (0);
+	if (argc > 2)
+	{
+		ft_putstr(dir_name);
+		ft_putstr(":\n");
+	}
+	print_lst(lst);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	DIR				*new_dir;
-	t_flag			*options;
+	t_flag	*opt;
+	int		n;
 
-	options = parse_flags(argc, argv);
-	new_dir = find_dir(argc, argv);
-	valid_check(new_dir, argv[1]);
-	print_dir(options, new_dir);
-	return (0);
+	opt = parse_flags(argc, argv);
+	if (!isflags(opt))
+	{
+		n = 1;
+		while (n < argc)
+		{
+			print_dir(argc, argv[n]);
+			n++;
+		}
+	}
 }

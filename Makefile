@@ -19,7 +19,7 @@ $(LIB): $(OBJ)
 	make -C libft
 
 build/%.o: %.c | build
-	gcc $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
+	gcc -g $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
 
 build:
 	mkdir build
