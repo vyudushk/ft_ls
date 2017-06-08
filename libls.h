@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 13:36:32 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/05/16 11:58:03 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/07 23:02:32 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct	s_flag
 	int	include_dot;
 	int	rev;
 	int	time;
+
+	t_list	*dirs;
 }				t_flag;
 
 typedef struct	s_file
@@ -34,14 +36,16 @@ typedef struct	s_file
 }				t_file;
 
 void			print_lst(t_list *lst);
-void			sort_lst(t_list **input, t_flag *options);
+void			print_lst_dot(t_list *lst);
+void			sort_lst(t_flag *work);
 void			valid_check(DIR *new_dir, char *dir_name);
 t_flag			*new_t_flag();
 void			set_flag(t_flag *flags, char c);
 t_flag			*parse_flags(int argc, char **argv);
 int				isflags(t_flag *opt);
 DIR				*find_dir(int argc, char **argv);
+int				count_dir(int argc, char **argv);
 
-void			process_lst(t_list *lst, t_flag *options);
+void			process_lst(t_flag *work);
 
 #endif

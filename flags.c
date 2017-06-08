@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/03 12:14:00 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/05/16 11:58:20 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/05 17:24:26 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_flag	*new_t_flag(void)
 	res->include_dot = 0;
 	res->rev = 0;
 	res->time = 0;
+	res->dirs = NULL;
 	return (res);
 }
 

@@ -13,6 +13,7 @@ FILENAMES	+= ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 FILENAMES	+= ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c
 FILENAMES	+= ft_lstiter.c ft_lstmap.c
 FILENAMES	+= ft_isupper.c ft_islower.c ft_intlen.c ft_iswhite.c ft_strrev.c
+FILENAMES	+= ft_sstrcmp.c
 FILENAMES	+= get_next_line.c
 HEADER		= .
 FLAGS		= -Wall -Wextra -Werror
@@ -29,7 +30,7 @@ $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ) 
 
 build/%.o: %.c | build
-	gcc  $(FLAGS) -I $(HEADER) -c $^ -o $@
+	gcc -g $(FLAGS) -I $(HEADER) -c $^ -o $@
 
 build:
 	mkdir build

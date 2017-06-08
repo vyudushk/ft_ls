@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/31 16:47:57 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/05/02 16:12:20 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/06 21:00:43 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,61 @@
 
 void		print_lst_dot(t_list *lst)
 {
-	ft_putendl(GET_NAME(lst));
+	ft_putendl(lst->content);
 }
 
 void		print_lst(t_list *lst)
 {
-	if (GET_NAME(lst)[0] != '.')
-		ft_putendl(GET_NAME(lst));
+	char	*hold;
+
+	hold = (char*)(lst->content);
+	if (hold && hold[0] != '.')
+		ft_putendl(lst->content);
 }
 
-void		process_lst(t_list *lst, t_flag *options)
+void		process_lst(t_flag *work)
 {
-	sort_lst(&lst, options);
-	if (options->include_dot)
-		ft_lstiter(lst, print_lst_dot);
+	sort_lst(work);
+	if (work->include_dot)
+		ft_lstiter(work->dirs, print_lst_dot);
 	else
-		ft_lstiter(lst, print_lst);
+		ft_lstiter(work->dirs, print_lst);
 }
 
-static int	is_lst_sort(t_list *lst, t_flag *opt)
+static int	is_lst_sort(t_flag *work)
 {
+	t_list *lst;
+
+	lst = work->dirs;
 	while (lst->next)
 	{
-		if ((!opt->rev && ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) > 0) ||
-			(opt->rev && ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) < 0))
+		if ((!work->rev && 
+					ft_sstrcmp((char*)(lst->content), 
+						(char*)(lst->next->content)) > 0) ||
+			(work->rev && ft_sstrcmp((char*)(lst->content), (char*)(lst->next->content)) < 0))
 			return (0);
 		lst = lst->next;
 	}
 	return (1);
 }
 
-void		sort_lst(t_list **input, t_flag *opt)
+void		sort_lst(t_flag *work)
 {
 	t_list	*lst;
 	t_list	*head;
 	void	*hold;
 
-	lst = *input;
-	head = lst;
-	while (is_lst_sort(head, opt) == 0)
+	lst = work->dirs;
+	head = work->dirs;
+	while (is_lst_sort(work) == 0)
 	{
 		lst = head;
-		while (lst->next)
+		while (lst->next->content)
 		{
-			if ((!opt->rev &&
-						(ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) > 0))
-				|| (opt->rev &&
-						(ft_strcmp(GET_NAME(lst), GET_NAME(lst->next)) < 0)))
+			if ((!work->rev &&
+						(ft_sstrcmp((char*)(lst->content), (char*)(lst->next->content)) > 0))
+				|| (work->rev &&
+						(ft_sstrcmp((char*)(lst->content), (char*)(lst->next->content)) < 0)))
 			{
 				hold = lst->content;
 				lst->content = lst->next->content;
