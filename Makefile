@@ -1,6 +1,6 @@
 NAME		= ft_ls
 LIB			= lslib.a
-FILENAMES	= main.c flag.c
+FILENAMES	= main.c setup.c extra.c
 HEADER		= .
 FLAGS		= -Wall -Wextra -Werror
 

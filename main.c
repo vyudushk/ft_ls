@@ -6,52 +6,60 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/08 19:36:16 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/09 11:56:26 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
 
-t_list	*get_files(int argc, char **argv)
+void	print_internals(t_flag *flags, char *name)
 {
-	t_list	*tmp;
-	int		n;
-	int		dashes;
+	t_list			*hold;
+	t_list			*next;
+	DIR				*dir;
+	struct dirent	*tmp;
+	struct stat		filestat;
 
-	tmp = (t_list*)malloc(sizeof(t_list));
-	tmp->next = 0;
-	tmp->content = 0;
-	n = 1;
-	dashes = 0;
-	while (n < argc)
+	hold = ft_lstnew(NULL, 0);
+	next = ft_lstnew(NULL, 0);
+	dir = opendir(name);
+	while ((tmp = readdir(dir)))
 	{
-		if (argv[n][0] != '-' || dashes)
+		ft_lstadd(&hold, ft_lstnew(tmp->d_name, ft_strlen(tmp->d_name) + 1));
+		stat(ft_strjoin(name, tmp->d_name), &filestat);
+		if (flags->ur && S_ISDIR(filestat.st_mode) && ft_strcmp(tmp->d_name, "..") != 0 && ft_strcmp(tmp->d_name, ".") != 0)
 		{
-			ft_lstadd(&tmp, ft_lstnew(argv[n], ft_strlen(argv[n])));
-			dashes++;
+			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, tmp->d_name), ft_strlen(ft_strjoin(name, tmp->d_name)) + 1));
 		}
-		n++;
 	}
-	if (tmp->content == 0)
-			ft_lstadd(&tmp, ft_lstnew(".", ft_strlen(".")));
-	return (tmp);
+	print_list(hold);
+	if (flags->ur)
+		process(flags, next);
+	ft_putchar('\n');
 }
 
-void	print_lst(t_list *work)
+void	process(t_flag *flags, t_list *work)
 {
+	int	len;
+	int	count;
+
+	len = lst_len(work);
+	count = len;
 	while (work->next)
 	{
-		ft_putendl(work->content);
+			ft_putstr(work->content);
+			ft_putstr(":\n");
+		print_internals(flags, ft_strjoin(work->content, "/"));
 		work = work->next;
 	}
 }
 
 int		main(int argc, char **argv)
 {
-	t_flag	*work;
+	t_flag	*flags;
 	t_list	*dirs;
 
-	work = get_flags(argc, argv);
+	flags = get_flags(argc, argv);
 	dirs = get_files(argc, argv);
-	print_lst(dirs);
+	process(flags, dirs);
 }
