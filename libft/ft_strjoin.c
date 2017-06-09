@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/16 16:11:39 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/11/24 14:06:18 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/09 15:29:08 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (s1 == 0 || s2 == 0)
 		return (0);
-	res = (char*)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2));
+	res = (char*)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (res == 0)
 		return (0);
 	fir = 0;
