@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:15:16 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/09 19:01:05 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/10 17:19:51 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <unistd.h>
 
 typedef struct	s_flag
 {
@@ -34,5 +35,6 @@ void			process(t_flag *flag, t_list *work);
 
 void			print_list(t_flag *flags, t_list *work);
 int				lst_len(t_list *head);
-void   			 sort_lst(t_flag *flags, t_list **work);
+void			sort_lst(t_flag *flags, t_list **work);
+
 #endif
