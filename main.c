@@ -6,27 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 15:19:34 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 16:34:54 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
-
-t_list	*get_next(t_list *work, char *name)
-{
-	t_list		*next;
-	struct stat	info;
-
-	next = ft_lstnew(NULL, 0);
-	while (work->next->content)
-	{
-		stat(ft_strjoin(name, work->content), &info);
-		if (S_ISDIR(info.st_mode) && ft_strcmp(work->content, "..") != 0 && ft_strcmp(work->content, ".") != 0)
-			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, work->content), ft_strlen(name) + ft_strlen(work->content) + 1));
-		work = work->next;
-	}
-	return (next);
-}
 
 void	print_internals(t_flag *flags, char *name)
 {
@@ -50,6 +34,7 @@ void	print_internals(t_flag *flags, char *name)
 						ft_strlen(name) + ft_strlen(tmp->d_name) + 1));
 		}
 	}
+	sort_lst(flags, &hold);
 	print_list(flags, hold);
 	ft_putchar('\n');
 	if (flags->ur)
@@ -61,11 +46,11 @@ void	print_internals(t_flag *flags, char *name)
 void	process(t_flag *flags, t_list *work)
 {
 	int	len;
-	int	count;
+	struct stat	info;
+	char	*buff;
 
-	sort_lst(flags, &work);
 	len = lst_len(work);
-	count = len;
+	sort_lst(flags, &work);
 	while (work->next)
 	{
 		if (len > 1 || flags->ur == 1)
@@ -73,7 +58,10 @@ void	process(t_flag *flags, t_list *work)
 			ft_putstr(work->content);
 			ft_putstr(":\n");
 		}
-		print_internals(flags, ft_strjoin(work->content, "/"));
+		buff = ft_strjoin(work->content, "/");
+		stat(buff, &info);
+		if (S_ISDIR(info.st_mode))
+			print_internals(flags, buff);
 		work = work->next;
 	}
 }
