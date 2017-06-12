@@ -6,11 +6,27 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/10 17:46:00 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 15:19:34 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
+
+t_list	*get_next(t_list *work, char *name)
+{
+	t_list		*next;
+	struct stat	info;
+
+	next = ft_lstnew(NULL, 0);
+	while (work->next->content)
+	{
+		stat(ft_strjoin(name, work->content), &info);
+		if (S_ISDIR(info.st_mode) && ft_strcmp(work->content, "..") != 0 && ft_strcmp(work->content, ".") != 0)
+			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, work->content), ft_strlen(name) + ft_strlen(work->content) + 1));
+		work = work->next;
+	}
+	return (next);
+}
 
 void	print_internals(t_flag *flags, char *name)
 {
