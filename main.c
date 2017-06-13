@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 23:10:58 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/13 13:20:34 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	print_internals(t_flag *flags, char *name)
 		if ((flags->a == 0 && tmp->d_name[0] != '.') || flags->a)
 			ft_lstadd(&hold, ft_lstnew(tmp->d_name, ft_strlen(tmp->d_name) + 1));
 		stat(ft_strjoin(name, tmp->d_name), &info);
-		if (flags->ur && S_ISDIR(info.st_mode) && ft_strcmp(tmp->d_name, "..")
-				&& ft_strcmp(tmp->d_name, "."))
+		if ((flags->ur && S_ISDIR(info.st_mode) && ft_strcmp(tmp->d_name, "..")
+				&& ft_strcmp(tmp->d_name, ".")) && ((flags->a == 0 && tmp->d_name[0] != '.') || flags->a))
 		{
-			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, tmp->d_name),
-						ft_strlen(name) + ft_strlen(tmp->d_name) + 1));
+				ft_lstadd(&next, ft_lstnew(ft_strjoin(name, tmp->d_name),
+							ft_strlen(name) + ft_strlen(tmp->d_name) + 1));
 		}
 	}
 	print_list(flags, hold);
