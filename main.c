@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 16:34:54 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 17:29:37 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	print_internals(t_flag *flags, char *name)
 	sort_lst(flags, &hold);
 	print_list(flags, hold);
 	ft_putchar('\n');
-	if (flags->ur)
+	free(hold);
+	if (flags->ur && lst_len(next))
 	{
 		process(flags, next);
 	}
@@ -60,8 +61,7 @@ void	process(t_flag *flags, t_list *work)
 		}
 		buff = ft_strjoin(work->content, "/");
 		stat(buff, &info);
-		if (S_ISDIR(info.st_mode))
-			print_internals(flags, buff);
+		print_internals(flags, buff);
 		work = work->next;
 	}
 }
