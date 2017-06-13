@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 17:45:58 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 16:32:11 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 23:02:25 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ t_list	*get_files(int argc, char **argv)
 		n++;
 	}
 	if (tmp->content == 0)
-			ft_lstadd(&tmp, ft_lstnew(".", 2));
+		ft_lstadd(&tmp, ft_lstnew(".", 2));
 	return (tmp);
 }

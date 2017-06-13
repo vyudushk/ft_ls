@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 10:02:54 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 16:28:53 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 23:01:54 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ t_list	*rev_list(t_list *input)
 
 void	print_list(t_flag *flags, t_list *work)
 {
+	sort_lst(flags, &work);
 	while (work->next)
 	{
 		if (flags)
-		ft_putendl(work->content);
+			ft_putendl(work->content);
 		work = work->next;
 	}
 }

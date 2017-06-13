@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 15:43:49 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 17:18:25 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 23:03:28 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	sort_lst(t_flag *flags, t_list **work)
 	while (is_sort(flags, head) == 0)
 	{
 		lst = head;
-		while(lst->next->content)
+		while (lst->next->content)
 		{
-			if ((!flags->r && ft_strcmp(lst->content, lst->next->content) > 0) ||
-				(flags->r && ft_strcmp(lst->content, lst->next->content) < 0))
+			if ((!flags->r && ft_strcmp(lst->content, lst->next->content) > 0)
+			|| (flags->r && ft_strcmp(lst->content, lst->next->content) < 0))
 			{
 				hold = lst->content;
 				lst->content = lst->next->content;

@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 17:29:37 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/12 23:00:55 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,23 @@ void	print_internals(t_flag *flags, char *name)
 		ft_lstadd(&hold, ft_lstnew(tmp->d_name, ft_strlen(tmp->d_name) + 1));
 		stat(ft_strjoin(name, tmp->d_name), &info);
 		if (flags->ur && S_ISDIR(info.st_mode) &&
-				ft_strcmp(tmp->d_name, "..") != 0 && ft_strcmp(tmp->d_name, ".") != 0)
+				ft_strcmp(tmp->d_name, "..") && ft_strcmp(tmp->d_name, "."))
 		{
 			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, tmp->d_name),
 						ft_strlen(name) + ft_strlen(tmp->d_name) + 1));
 		}
 	}
-	sort_lst(flags, &hold);
 	print_list(flags, hold);
 	ft_putchar('\n');
-	free(hold);
 	if (flags->ur && lst_len(next))
-	{
 		process(flags, next);
-	}
 }
 
 void	process(t_flag *flags, t_list *work)
 {
-	int	len;
+	int			len;
 	struct stat	info;
-	char	*buff;
+	char		*buff;
 
 	len = lst_len(work);
 	sort_lst(flags, &work);
