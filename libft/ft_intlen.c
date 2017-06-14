@@ -6,28 +6,35 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/01 00:33:03 by vyudushk          #+#    #+#             */
-/*   Updated: 2016/12/01 00:43:07 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/13 17:23:21 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /*
-** This is to count the number of digits. This function doesn't give special
-** attention to negatives.
+** This does not properly handle int min and int max
 */
 
 int	ft_intlen(int n)
 {
-	int		res;
-
-	if (n == 0)
-		return (1);
-	res = 0;
 	if (n < 0)
-		res++;
-	while (n)
-	{
-		res++;
-		n = n / 10;
-	}
-	return (res);
+		n = -n;
+	if (n < 10)
+		return (1);
+	if (n < 100)
+		return (2);
+	if (n < 1000)
+		return (3);
+	if (n < 10000)
+		return (4);
+	if (n < 100000)
+		return (5);
+	if (n < 1000000)
+		return (6);
+	if (n < 10000000)
+		return (7);
+	if (n < 100000000)
+		return (8);
+	if (n < 1000000000)
+		return (9);
+	return (10);
 }

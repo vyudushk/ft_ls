@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 10:02:54 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/13 16:24:56 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/13 23:06:03 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,21 @@ void	ft_puttime(char *str)
 	write(1, str, i);
 }
 
-void	print_long(char *name)
+void	ft_printtab(int tab, char *str)
+{
+
+	tab = tab - ft_strlen(str);
+	while (tab--)
+	{
+		ft_putchar(' ');
+		if (tab < 0)
+			break;
+	}
+	ft_putstr(str);
+	ft_putchar(' ');
+}
+
+void	print_long(char *name, int tab, int linktab)
 {
 	struct stat		info;
 	struct passwd	*pwd;
@@ -62,25 +76,62 @@ void	print_long(char *name)
 	pwd = getpwuid(info.st_uid);
 	grp = getgrgid(info.st_gid);
 	print_permissions(info);
-	ft_putnbr(info.st_nlink);
-	ft_putchar(' ');
+	ft_printtab(linktab, ft_itoa(info.st_nlink));
 	ft_putstr(pwd->pw_name);
-	ft_putchar(' ');
+	ft_putstr("  ");
 	ft_putstr(grp->gr_name);
 	ft_putstr("  ");
-	ft_putnbr(info.st_size);
-	ft_putchar(' ');
+	ft_printtab(tab, ft_itoa(info.st_size));
 	ft_puttime(ctime(&info.st_mtime));
 	ft_putchar(' ');
 }
 
+int		get_link_tab(t_list *work, char *name)
+{
+	size_t		longest;
+	struct stat	info;
+
+	longest = 0;
+	while (work->next->content)
+	{
+		stat(ft_strjoin(name, work->content), &info);
+		if (ft_strlen(ft_itoa(info.st_nlink)) > longest)
+			longest = ft_strlen(ft_itoa(info.st_nlink));
+		work = work->next;
+	}
+	return (longest);
+}
+
+int		get_tab(t_list *work, char *name)
+{
+	size_t		longest;
+	struct stat	info;
+
+	longest = 0;
+	while (work->next->content)
+	{
+		stat(ft_strjoin(name, work->content), &info);
+		if (ft_strlen(ft_itoa(info.st_size)) > longest)
+			longest = ft_strlen(ft_itoa(info.st_size));
+		work = work->next;
+	}
+	return (longest);
+}
+
 void	print_list(t_flag *flags, t_list *work, char *name)
 {
+	int	tab;
+	int	linktab;
+
 	sort_lst(flags, &work);
+	tab = get_tab(work, name);
+	linktab = get_link_tab(work, name);
 	while (work->next)
 	{
 		if (flags->l)
-			print_long(ft_strjoin(name, work->content));
+		{
+			print_long(ft_strjoin(name, work->content), tab, linktab);
+		}
 		ft_putendl(work->content);
 		work = work->next;
 	}
