@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:15:16 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/13 16:12:50 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/13 16:27:17 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <time.h>
 # include <pwd.h>
 # include <grp.h>
+
+# define GET_NANOSEC(info) info.st_mtimespec.tv_nsec
 
 typedef struct	s_flag
 {

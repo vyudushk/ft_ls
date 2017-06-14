@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 15:43:49 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/13 14:17:56 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/13 16:29:02 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ int		is_nano_sort(t_flag *flags, t_list *work)
 	{
 		stat(lst->content, &info);
 		stat(lst->next->content, &inext);
-		if ((!flags->r && (info.st_mtimespec.tv_nsec < inext.st_mtimespec.tv_nsec))
-			|| (flags->r && (info.st_mtimespec.tv_nsec > inext.st_mtimespec.tv_nsec)))
+		if ((!flags->r &&
+			(info.st_mtimespec.tv_nsec < inext.st_mtimespec.tv_nsec))
+			|| (flags->r &&
+			(info.st_mtimespec.tv_nsec > inext.st_mtimespec.tv_nsec)))
 			return (0);
 		lst = lst->next;
 	}
@@ -73,7 +75,7 @@ void	sort_lst_nano(t_flag *flags, t_list **work)
 	struct stat	info;
 	struct stat	inext;
 
-	lst= *work;
+	lst = *work;
 	head = lst;
 	while (is_nano_sort(flags, head) == 0)
 	{
@@ -82,8 +84,8 @@ void	sort_lst_nano(t_flag *flags, t_list **work)
 		{
 			stat(lst->content, &info);
 			stat(lst->next->content, &inext);
-			if ((!flags->r && (info.st_mtimespec.tv_nsec < inext.st_mtimespec.tv_nsec))
-				|| (flags->r && (info.st_mtimespec.tv_nsec > inext.st_mtimespec.tv_nsec)))
+			if (((!flags->r && (GET_NANOSEC(info) < GET_NANOSEC(inext))))
+				|| (flags->r && (GET_NANOSEC(info) > GET_NANOSEC(inext))))
 			{
 				hold = lst->content;
 				lst->content = lst->next->content;
@@ -102,7 +104,7 @@ void	sort_lst_time(t_flag *flags, t_list **work)
 	struct stat	info;
 	struct stat	inext;
 
-	lst= *work;
+	lst = *work;
 	head = lst;
 	while (is_time_sort(flags, head) == 0)
 	{
