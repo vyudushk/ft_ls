@@ -6,28 +6,21 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 10:02:54 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/14 11:33:33 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/14 16:50:19 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
 
-t_list	*rev_list(t_list *input)
+void	print_permissions(struct stat info, struct stat lfo)
 {
-	t_list	*res;
-
-	ft_lstnew(NULL, 0);
-	while (input->next->content)
+	if (S_ISLNK(lfo.st_mode))
 	{
-		ft_lstadd(&res, ft_lstnew(input->content, input->content_size));
-		input = input->next;
+		ft_putchar('l');
+		info = lfo;
 	}
-	return (res);
-}
-
-void	print_permissions(struct stat info)
-{
-	ft_putchar(S_ISDIR(info.st_mode) ? 'd' : '-');
+	else
+		ft_putchar(S_ISDIR(info.st_mode) ? 'd' : '-');
 	ft_putchar(S_IRUSR & info.st_mode ? 'r' : '-');
 	ft_putchar(S_IWUSR & info.st_mode ? 'w' : '-');
 	ft_putchar(S_IXUSR & info.st_mode ? 'x' : '-');
@@ -68,16 +61,29 @@ void	ft_printtab(int tab, char *str, int mode)
 	ft_putchar(' ');
 }
 
-void	print_long(char *name, t_tab tabs)
+void	print_link(char *name)
+{
+	char	*hold;
+
+	hold = ft_strnew(PATH_MAX);
+	readlink(name, hold, PATH_MAX - 1);
+	ft_putstr(" -> ");
+	ft_putstr(hold);
+	free(hold);
+}
+
+void	print_long(char *name, t_tab tabs, struct stat lfo, char *work)
 {
 	struct stat		info;
 	struct passwd	*pwd;
 	struct group	*grp;
 
 	stat(name, &info);
+	if (S_ISLNK(lfo.st_mode))
+		info = lfo;
 	pwd = getpwuid(info.st_uid);
 	grp = getgrgid(info.st_gid);
-	print_permissions(info);
+	print_permissions(info, lfo);
 	ft_printtab(tabs.linktab, ft_itoa(info.st_nlink), 0);
 	ft_printtab(tabs.nametab, pwd->pw_name, 1);
 	ft_putstr(" ");
@@ -86,83 +92,16 @@ void	print_long(char *name, t_tab tabs)
 	ft_printtab(tabs.tab, ft_itoa(info.st_size), 0);
 	ft_puttime(ctime(&info.st_mtime));
 	ft_putchar(' ');
-}
-
-int		get_link_tab(t_list *work, char *name)
-{
-	size_t		longest;
-	struct stat	info;
-
-	longest = 0;
-	while (work->next->content)
-	{
-		stat(ft_strjoin(name, work->content), &info);
-		if (ft_strlen(ft_itoa(info.st_nlink)) > longest)
-			longest = ft_strlen(ft_itoa(info.st_nlink));
-		work = work->next;
-	}
-	return (longest);
-}
-
-int		get_tab(t_list *work, char *name)
-{
-	size_t		longest;
-	struct stat	info;
-
-	longest = 0;
-	while (work->next->content)
-	{
-		stat(ft_strjoin(name, work->content), &info);
-		if (ft_strlen(ft_itoa(info.st_size)) > longest)
-			longest = ft_strlen(ft_itoa(info.st_size));
-		work = work->next;
-	}
-	return (longest);
-}
-
-int		get_group_tab(t_list *work, char *name)
-{
-	size_t			longest;
-	struct stat		info;
-	struct group	*grp;
-
-	longest = 0;
-	while (work->next->content)
-	{
-		stat(ft_strjoin(name, work->content), &info);
-		grp = getgrgid(info.st_gid);
-		if (ft_strlen(grp->gr_name) > longest)
-		{
-			longest = ft_strlen(grp->gr_name);
-		}
-		work = work->next;
-	}
-	return (longest);
-}
-
-int		get_name_tab(t_list *work, char *name)
-{
-	size_t			longest;
-	struct stat		info;
-	struct passwd	*pwd;
-
-	longest = 0;
-	while (work->next->content)
-	{
-		stat(ft_strjoin(name, work->content), &info);
-		pwd = getpwuid(info.st_uid);
-		if (ft_strlen(pwd->pw_name) > longest)
-		{
-			longest = ft_strlen(pwd->pw_name);
-		}
-		work = work->next;
-	}
-	return (longest);
+	ft_putstr(work);
+	if (S_ISLNK(lfo.st_mode))
+		print_link(name);
+	ft_putchar('\n');
 }
 
 void	print_list(t_flag *flags, t_list *work, char *name)
 {
 	t_tab	tabs;
+	struct stat lfo;
 
 	sort_lst(flags, &work);
 	tabs.tab = get_tab(work, name);
@@ -173,9 +112,11 @@ void	print_list(t_flag *flags, t_list *work, char *name)
 	{
 		if (flags->l)
 		{
-			print_long(ft_strjoin(name, work->content), tabs);
+			lstat(ft_strjoin(name, work->content), &lfo);
+			print_long(ft_strjoin(name, work->content), tabs, lfo, work->content);
 		}
-		ft_putendl(work->content);
+		else
+			ft_putendl(work->content);
 		work = work->next;
 	}
 	ft_putchar('\n');

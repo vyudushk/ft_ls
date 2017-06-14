@@ -1,6 +1,6 @@
 NAME		= ft_ls
 LIB			= lslib.a
-FILENAMES	= main.c setup.c extra.c sort.c
+FILENAMES	= main.c setup.c extra.c sort.c tabs.c
 HEADER		= .
 FLAGS		= -Wall -Wextra -Werror
 
@@ -19,7 +19,7 @@ $(LIB): $(OBJ)
 	make -C libft
 
 build/%.o: %.c | build
-	gcc -g $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
+	gcc $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
 
 build:
 	mkdir build

@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:15:16 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/14 11:32:45 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/14 15:05:44 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <pwd.h>
 # include <grp.h>
 # include <limits.h>
+# include <stdio.h>
+# include <errno.h>
 
 # define GET_NANOSEC(info) info.st_mtimespec.tv_nsec
 
@@ -50,5 +52,9 @@ void			process(t_flag *flag, t_list *work);
 void			print_list(t_flag *flags, t_list *work, char *name);
 int				lst_len(t_list *head);
 void			sort_lst(t_flag *flags, t_list **work);
+int				get_tab(t_list *work, char *name);
+int				get_link_tab(t_list *work, char *name);
+int				get_name_tab(t_list *work, char *name);
+int				get_group_tab(t_list *work, char *name);
 
 #endif

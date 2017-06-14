@@ -6,11 +6,19 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/13 15:15:24 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/14 15:56:51 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
+
+char	*uidget(struct stat info)
+{
+	struct passwd	*pwd;
+
+	pwd = getpwuid(info.st_uid);
+	return (pwd->pw_name);
+}
 
 void	print_internals(t_flag *flags, char *name)
 {
@@ -22,6 +30,13 @@ void	print_internals(t_flag *flags, char *name)
 
 	hold = ft_lstnew(NULL, 0);
 	next = ft_lstnew(NULL, 0);
+	lstat(name, &info);
+	if ((S_IRUSR & info.st_mode) == 0 || ((S_IRGRP & info.st_mode) == 0 &&
+				ft_strcmp(uidget(info), "root") == 0))
+	{
+		ft_putstr_fd(" Permission denied\n", 2);
+		return ;
+	}
 	dir = opendir(name);
 	while ((t = readdir(dir)))
 	{
@@ -56,7 +71,10 @@ void	process(t_flag *flags, t_list *work)
 			ft_putstr(work->content);
 			ft_putstr(":\n");
 		}
-		buff = ft_strjoin(work->content, "/");
+		if (ft_strcmp(work->content, "/") == 0)
+			buff = ft_strdup("/");
+		else
+			buff = ft_strjoin(work->content, "/");
 		stat(buff, &info);
 		print_internals(flags, buff);
 		work = work->next;
