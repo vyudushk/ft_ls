@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/14 15:56:51 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/15 15:58:58 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ char	*uidget(struct stat info)
 
 	pwd = getpwuid(info.st_uid);
 	return (pwd->pw_name);
+}
+
+void	del(void *kill, size_t size)
+{
+	size++;
+	free(kill);
 }
 
 void	print_internals(t_flag *flags, char *name)
@@ -38,22 +44,33 @@ void	print_internals(t_flag *flags, char *name)
 		return ;
 	}
 	dir = opendir(name);
-	while ((t = readdir(dir)))
+//	if (errno)
+//		dprintf(2, "Error opening %s: %s\n", name, strerror(errno));
+	if (errno == 0)
 	{
-		if ((flags->a == 0 && t->d_name[0] != '.') || flags->a)
-			ft_lstadd(&hold, ft_lstnew(t->d_name, ft_strlen(t->d_name) + 1));
-		stat(ft_strjoin(name, t->d_name), &info);
-		if ((flags->ur && S_ISDIR(info.st_mode) && ft_strcmp(t->d_name, "..")
-		&& ft_strcmp(t->d_name, ".")) && ((!flags->a && t->d_name[0] != '.')
-		|| flags->a))
+		while ((t = readdir(dir)))
 		{
-			ft_lstadd(&next, ft_lstnew(ft_strjoin(name, t->d_name),
-						ft_strlen(name) + ft_strlen(t->d_name) + 1));
+			if ((flags->a == 0 && t->d_name[0] != '.') || flags->a)
+			{
+				ft_lstadd(&hold, ft_lstnew(strndup(t->d_name, t->d_namlen), ft_strlen(t->d_name) + 1));
+			}
+			stat(ft_strjoin(name, t->d_name), &info);
+			if ((flags->ur && S_ISDIR(info.st_mode) && ft_strcmp(t->d_name, "..")
+			&& ft_strcmp(t->d_name, ".")) && ((!flags->a && t->d_name[0] != '.')
+			|| flags->a))
+			{
+				ft_lstadd(&next, ft_lstnew(ft_strjoin(name, t->d_name),
+							ft_strlen(name) + t->d_namlen + 1));
+			}
 		}
+		closedir(dir);
+		if (lst_len(hold))
+			print_list(flags, hold, name);
+		ft_lstdel(&hold, del);
+		if (flags->ur && lst_len(next))
+			process(flags, next);
+		ft_lstdel(&next, del);
 	}
-	print_list(flags, hold, name);
-	if (flags->ur && lst_len(next))
-		process(flags, next);
 }
 
 void	process(t_flag *flags, t_list *work)
@@ -64,6 +81,7 @@ void	process(t_flag *flags, t_list *work)
 
 	len = lst_len(work);
 	sort_lst(flags, &work);
+	buff = ft_strnew(PATH_MAX);
 	while (work->next)
 	{
 		if (len > 1 || flags->ur == 1)
@@ -72,9 +90,13 @@ void	process(t_flag *flags, t_list *work)
 			ft_putstr(":\n");
 		}
 		if (ft_strcmp(work->content, "/") == 0)
-			buff = ft_strdup("/");
+		{
+			buff = strdup("/");
+		}
 		else
+		{
 			buff = ft_strjoin(work->content, "/");
+		}
 		stat(buff, &info);
 		print_internals(flags, buff);
 		work = work->next;
