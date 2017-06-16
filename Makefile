@@ -12,14 +12,14 @@ OBJ			= $(addprefix build/, $(FILENAMES:.c=.o))
 all : $(NAME)
 
 $(NAME) : $(LIB)
-	gcc -g $(FLAGS) -I. -I libft libft/libft.a $(LIB) -o $(NAME)
+	gcc $(FLAGS) -I. -I libft libft/libft.a $(LIB) -o $(NAME)
 
 $(LIB): $(OBJ)
 	ar rc $(LIB) $(OBJ)
 	make -C libft
 
 build/%.o: %.c | build
-	gcc -g $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
+	gcc $(FLAGS) -I $(HEADER) -I libft -I. -c $^ -o $@
 
 build:
 	mkdir build
