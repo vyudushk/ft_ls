@@ -6,45 +6,11 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 15:43:49 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/14 14:43:36 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:40:59 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
-
-int		is_sort(t_flag *flags, t_list *work)
-{
-	t_list	*lst;
-
-	lst = work;
-	while (lst->next->content)
-	{
-		if ((!flags->r && ft_strcmp(lst->content, lst->next->content) > 0) ||
-			(flags->r && ft_strcmp(lst->content, lst->next->content) < 0))
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
-
-int		is_time_sort(t_flag *flags, t_list *work)
-{
-	t_list		*lst;
-	struct stat	info;
-	struct stat	inext;
-
-	lst = work;
-	while (lst->next->content)
-	{
-		stat(lst->content, &info);
-		stat(lst->next->content, &inext);
-		if ((!flags->r && (info.st_mtime < inext.st_mtime))
-			|| (flags->r && (info.st_mtime > inext.st_mtime)))
-			return (0);
-		lst = lst->next;
-	}
-	return (1);
-}
 
 int		is_nano_sort(t_flag *flags, t_list *work)
 {

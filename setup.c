@@ -6,11 +6,17 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 17:45:58 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/12 23:02:25 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:45:20 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
+
+void	del(void *kill, size_t size)
+{
+	size++;
+	free(kill);
+}
 
 void	clear_flag(t_flag *tmp)
 {

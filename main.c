@@ -6,70 +6,55 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 16:42:27 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/15 15:58:58 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:43:24 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libls.h"
 
-char	*uidget(struct stat info)
+int		permission(struct stat info)
 {
-	struct passwd	*pwd;
-
-	pwd = getpwuid(info.st_uid);
-	return (pwd->pw_name);
+	if (GET_RUS(info) || (!S_IRGRP & info.st_mode &&
+				!ft_strcmp(uidget(info), "root")))
+	{
+		ft_putstr_fd(" Permission denied\n", 2);
+		return (1);
+	}
+	return (0);
 }
 
-void	del(void *kill, size_t size)
+void	lst_short(t_list **next, char *name, struct dirent *t)
 {
-	size++;
-	free(kill);
+	ft_lstadd(next, ft_lstnew(ft_strjoin(name, t->d_name),
+				ft_strlen(name) + GET_L(t)));
 }
 
-void	print_internals(t_flag *flags, char *name)
+void	print_internals(t_flag *f, char *n)
 {
-	t_list			*hold;
+	t_list			*h;
 	t_list			*next;
 	DIR				*dir;
 	struct dirent	*t;
-	struct stat		info;
+	struct stat		i;
 
-	hold = ft_lstnew(NULL, 0);
+	h = ft_lstnew(NULL, 0);
 	next = ft_lstnew(NULL, 0);
-	lstat(name, &info);
-	if ((S_IRUSR & info.st_mode) == 0 || ((S_IRGRP & info.st_mode) == 0 &&
-				ft_strcmp(uidget(info), "root") == 0))
-	{
-		ft_putstr_fd(" Permission denied\n", 2);
+	lstat(n, &i);
+	if (permission(i))
 		return ;
-	}
-	dir = opendir(name);
-//	if (errno)
-//		dprintf(2, "Error opening %s: %s\n", name, strerror(errno));
-	if (errno == 0)
+	if ((dir = opendir(n)))
 	{
 		while ((t = readdir(dir)))
 		{
-			if ((flags->a == 0 && t->d_name[0] != '.') || flags->a)
-			{
-				ft_lstadd(&hold, ft_lstnew(strndup(t->d_name, t->d_namlen), ft_strlen(t->d_name) + 1));
-			}
-			stat(ft_strjoin(name, t->d_name), &info);
-			if ((flags->ur && S_ISDIR(info.st_mode) && ft_strcmp(t->d_name, "..")
-			&& ft_strcmp(t->d_name, ".")) && ((!flags->a && t->d_name[0] != '.')
-			|| flags->a))
-			{
-				ft_lstadd(&next, ft_lstnew(ft_strjoin(name, t->d_name),
-							ft_strlen(name) + t->d_namlen + 1));
-			}
+			if ((f->a == 0 && TO_CHAR(t) != '.') || f->a)
+				ft_lstadd(&h, ft_lstnew(ft_strdup(t->d_name), GET_L(t)));
+			stat(ft_strjoin(n, t->d_name), &i);
+			if ((f->ur && IFDIR(i) && DOTS(t) && DOT(t))
+					&& ((!f->a && TO_CHAR(t) != '.') || f->a))
+				lst_short(&next, n, t);
 		}
 		closedir(dir);
-		if (lst_len(hold))
-			print_list(flags, hold, name);
-		ft_lstdel(&hold, del);
-		if (flags->ur && lst_len(next))
-			process(flags, next);
-		ft_lstdel(&next, del);
+		shorten(f, h, next, n);
 	}
 }
 
@@ -90,13 +75,9 @@ void	process(t_flag *flags, t_list *work)
 			ft_putstr(":\n");
 		}
 		if (ft_strcmp(work->content, "/") == 0)
-		{
 			buff = strdup("/");
-		}
 		else
-		{
 			buff = ft_strjoin(work->content, "/");
-		}
 		stat(buff, &info);
 		print_internals(flags, buff);
 		work = work->next;

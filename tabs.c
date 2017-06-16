@@ -6,7 +6,7 @@
 /*   By: vyudushk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 13:39:13 by vyudushk          #+#    #+#             */
-/*   Updated: 2017/06/14 13:43:26 by vyudushk         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:35:41 by vyudushk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,20 @@ int		get_group_tab(t_list *work, char *name)
 		work = work->next;
 	}
 	return (longest);
+}
+
+void	ft_printtab(int tab, char *str, int mode)
+{
+	tab = tab - ft_strlen(str);
+	if (mode == 1)
+		ft_putstr(str);
+	while (tab--)
+	{
+		ft_putchar(' ');
+		if (tab < 0)
+			break ;
+	}
+	if (mode == 0)
+		ft_putstr(str);
+	ft_putchar(' ');
 }
